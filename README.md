@@ -4,6 +4,7 @@ The supported filetypes are jpg, jpeg, png, gif, webp, mp4, avi, mkv. (And perha
 
 ## Programming Languages:
 
-AVAILABLE | WORK IN PROGRESS | TODO
---- | --- | ---
-Java | TypeScript | JavaScript
+AVAILABLE | TODO
+--- | ---
+Java | JavaScript
+TypeScript
