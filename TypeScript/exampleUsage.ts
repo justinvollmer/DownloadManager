@@ -1,10 +1,10 @@
-import { download } from "./DownloadManager";
+import { download, downloadFromList } from "./DownloadManager";
 
-async function exampleUsage() {
+async function exampleUsageSimple() {
   try {
-    const imageUrl = "https://example.com/imagefile.jpg";
-    const videoUrl = "https://example.com/videofile.mp4";
-    const customFileType = "mkv"; // The custom file type 
+    const imageUrl = "https://example.com/image.jpg";
+    const videoUrl = "https://example.com/video.mp4";
+    const customFileType = "mkv"; // The custom file type
     const outputFolder = "./"; // Specify the output folder
 
     await download(imageUrl, "downloaded_image", outputFolder);
@@ -19,4 +19,23 @@ async function exampleUsage() {
   }
 }
 
-exampleUsage();
+async function exampleUsageList() {
+  const urlList = [
+    { url: "https://example.com/image.jpg", filename: "image" },
+    { url: "https://example.com/video.mp4", filename: "video" },
+    { url: "https://example.com/image.jpg", filename: "another image" },
+  ];
+  const outputFolder = "./";
+
+  downloadFromList(urlList, outputFolder)
+    .then(() => {
+      console.log("All files downloaded successfully.");
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+exampleUsageSimple();
+
+exampleUsageList();

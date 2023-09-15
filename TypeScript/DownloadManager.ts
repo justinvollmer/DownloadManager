@@ -1,6 +1,6 @@
-import axios from 'axios';
-import fs from 'fs';
-import path from 'path';
+import axios from "axios";
+import fs from "fs";
+import path from "path";
 
 /**
  * Downloads a file from a given URL, determines its file type, and saves it to a specified location.
@@ -19,15 +19,15 @@ async function download(
 ): Promise<void> {
   try {
     // Make an HTTP GET request to the specified URL with a stream response.
-    const response = await axios.get(url, { responseType: 'stream' });
+    const response = await axios.get(url, { responseType: "stream" });
 
     if (response.status === 200) {
       // Determine the content-type of the response to infer the file type, or use the provided fileType.
-      const contentType = response.headers['content-type'];
-      const defaultFileType = fileType || contentType.split('/')[1]; // Extract file type from content-type header
+      const contentType = response.headers["content-type"];
+      const defaultFileType = fileType || contentType.split("/")[1]; // Extract file type from content-type header
 
       if (!defaultFileType) {
-        throw new Error('Unable to determine file type.');
+        throw new Error("Unable to determine file type.");
       }
 
       // Construct the full file name with the determined file type.
@@ -41,15 +41,43 @@ async function download(
       response.data.pipe(writer);
 
       return new Promise<void>((resolve, reject) => {
-        writer.on('finish', () => resolve());
-        writer.on('error', (err: Error) => reject(err));
+        writer.on("finish", () => resolve());
+        writer.on("error", (err: Error) => reject(err));
       });
     } else {
-      throw new Error(`Failed to download file. Status code: ${response.status}`);
+      throw new Error(
+        `Failed to download file. Status code: ${response.status}`
+      );
     }
   } catch (error) {
-    throw new Error(`Error downloading file: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw new Error(
+      `Error downloading file: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`
+    );
   }
 }
 
-export { download };
+async function downloadFromList(
+  urlList: { url: string; filename: string }[],
+  outputFolder: string
+): Promise<void> {
+  try {
+    // Create the output folder if it doesn't exist
+    if (!fs.existsSync(outputFolder)) {
+      fs.mkdirSync(outputFolder, { recursive: true });
+    }
+
+    for (let i = 0; i < urlList.length; i++) {
+      const { url, filename } = urlList[i];
+      await download(url, `${filename} (${i + 1})`, outputFolder);
+      console.log(`File ${filename} (${i + 1}) downloaded successfully.`);
+    }
+  } catch (error) {
+    console.error(
+      `Error: ${error instanceof Error ? error.message : "Unknown error"}`
+    );
+  }
+}
+
+export { download, downloadFromList };
