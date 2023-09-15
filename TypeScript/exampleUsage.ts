@@ -1,10 +1,10 @@
 import { download } from "./DownloadManager";
 
-async function downloadFiles() {
+async function exampleUsage() {
   try {
     const imageUrl = "https://example.com/imagefile.jpg";
     const videoUrl = "https://example.com/videofile.mp4";
-    const customFileType = "mkv";
+    const customFileType = "mkv"; // The custom file type 
     const outputFolder = "./"; // Specify the output folder
 
     await download(imageUrl, "downloaded_image", outputFolder);
@@ -19,4 +19,4 @@ async function downloadFiles() {
   }
 }
 
-downloadFiles();
+exampleUsage();
