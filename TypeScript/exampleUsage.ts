@@ -24,6 +24,11 @@ async function exampleUsageList() {
     { url: "https://example.com/image.jpg", filename: "image" },
     { url: "https://example.com/video.mp4", filename: "video" },
     { url: "https://example.com/image.jpg", filename: "another image" },
+    { url: "https://example.com/video.mp4", filename: "another video" },
+    { url: "https://example.com/video.mkv", filename: "you can make this" },
+    { url: "https://example.com/image.png", filename: "even longer" },
+    { url: "https://example.com/video.avi", filename: "until it" },
+    { url: "https://example.com/image.webp", filename: "gets silly" },
   ];
   const outputFolder = "./";
 
