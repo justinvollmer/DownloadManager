@@ -5,6 +5,9 @@ import path from "path";
 /**
  * Downloads a file from a given URL, determines its file type, and saves it to a specified location.
  *
+ * @author Justin Vollmer
+ * @justinvollmer
+ *
  * @param {string} url - The URL of the file to download.
  * @param {string} fileName - The desired name of the downloaded file without an extension.
  * @param {string} [outputFolder] - The folder where the downloaded file should be saved.
